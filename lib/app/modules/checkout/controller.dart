@@ -1,7 +1,7 @@
-// ignore_for_file: unused_field
-
+import 'package:app_hortifruti/app/core/utils/util_services.dart';
 import 'package:app_hortifruti/app/data/model/address.dart';
 import 'package:app_hortifruti/app/data/model/city_cost.dart';
+import 'package:app_hortifruti/app/data/model/order.dart';
 import 'package:app_hortifruti/app/data/model/payment.dart';
 import 'package:app_hortifruti/app/data/services/auth/service.dart';
 import 'package:app_hortifruti/app/data/services/cart/service.dart';
@@ -14,6 +14,7 @@ class CheckoutController extends GetxController {
   final CheckoutRepository _repository;
   CheckoutController(this._repository);
 
+  RxBool isLoading = true.obs;
   final _cartService = Get.find<CartService>();
   final _authService = Get.find<AuthService>();
   double get totalCart => _cartService.total;
@@ -21,21 +22,31 @@ class CheckoutController extends GetxController {
   final selectedPayment = Rxn<PaymentModel>();
   final adresses = RxList<AddressModel>();
   final selectedAddress = Rxn<AddressModel>();
+  final moneyFor = TextEditingController();
 
   double get deliveryCost {
-    if (getCityCostModel != null) {
-      return getCityCostModel!.cost;
-    }
+    if (getCityCostModel != null) return getCityCostModel!.cost;
+
     return 0.0;
   }
 
   double get totalOrder => totalCart + deliveryCost;
+
   List<PaymentModel> get payment => _cartService.store.value!.payment;
+
   CityCostModel? get getCityCostModel {
-    var cityId = 1;
+    var cityId = selectedAddress.value?.city?.id;
     return _cartService.store.value!.cityCosts.firstWhereOrNull(
       (element) => element.id == cityId,
     );
+  }
+
+  bool get deliveryToMyAddress {
+    if (getCityCostModel != null) {
+      return true;
+    }
+    selectedAddress.value = null;
+    return false;
   }
 
   @override
@@ -49,17 +60,23 @@ class CheckoutController extends GetxController {
     selectedPayment.value = payment;
   }
 
-  void goToLogin() {
-    Get.toNamed(Routes.login);
+  void goToLogin() async {
+    await Get.toNamed(Routes.login);
+    fetchUserAdress();
   }
 
-  void goToNewAddress() {
-    Get.toNamed(Routes.address);
+  void goToNewAddress() async {
+    await Get.toNamed(Routes.address);
+    fetchUserAdress();
   }
 
-  fetchUserAdress() {
+  void fetchUserAdress() {
+    isLoading.value = true;
     _repository.getUserAddress().then((value) {
-      adresses.addAll(value);
+      adresses.assignAll(value);
+      isLoading.value = false;
+    }, onError: (error) {
+      isLoading.value = false;
     });
   }
 
@@ -71,7 +88,6 @@ class CheckoutController extends GetxController {
             SimpleDialogOption(
               onPressed: () {
                 selectedAddress.value = address;
-                print(selectedAddress.value);
                 Get.back();
               },
               child: Column(
@@ -95,5 +111,47 @@ class CheckoutController extends GetxController {
         ],
       ),
     );
+  }
+
+  void createOrder() {
+    if (selectedPayment.value!.name == 'Dinheiro' &&
+        double.parse(moneyFor.text) < totalOrder) {
+      ScaffoldMessenger.of(Get.overlayContext!).showSnackBar(
+        UtilServices().messageSnackBar(
+            message: 'Troco deve ser maior que o valor do pedido',
+            isError: true),
+      );
+      return;
+    }
+    if (selectedPayment.value == null) {
+      ScaffoldMessenger.of(Get.overlayContext!).showSnackBar(
+        UtilServices().messageSnackBar(
+            message: 'Selecione um meio de pagamento', isError: true),
+      );
+      return;
+    }
+
+    if (selectedAddress.value == null) return;
+
+    var order = OrderModel(
+      store: _cartService.store.value!,
+      payment: selectedPayment.value!,
+      cartProducts: _cartService.products,
+      address: selectedAddress.value!,
+      observation: _cartService.cartObservation.value,
+      moneyFor: moneyFor.text.isEmpty ? null : double.parse(moneyFor.text),
+    );
+
+    _repository.postOrder(order).then(
+          (value) => {
+            moneyFor.text = '',
+            UtilServices().showAlertDialog(
+                message: 'Pedido Enviado',
+                route: Routes.dashBoard,
+                barrierDismissible: false,
+                routeMessage: 'Ver Meus Pedidos'),
+            _cartService.clearCart()
+          },
+        );
   }
 }

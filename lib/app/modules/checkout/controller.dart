@@ -61,7 +61,7 @@ class CheckoutController extends GetxController {
   }
 
   void goToLogin() async {
-    await Get.toNamed(Routes.login);
+    await Get.toNamed(Routes.login, arguments: 2);
     fetchUserAdress();
   }
 

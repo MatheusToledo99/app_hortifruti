@@ -1,5 +1,6 @@
 import 'package:app_hortifruti/app/modules/dashboard/controller.dart';
 import 'package:app_hortifruti/app/modules/home/page.dart';
+import 'package:app_hortifruti/app/modules/profile/page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -33,7 +34,7 @@ class DashBoardPage extends GetView<DashBoardController> {
             index: controller.currentPageIndex.value,
             children: const [
               HomePage(),
-              Text('Meu Perfil'),
+              ProfilePage(),
               Text('Meus Pedidos'),
             ],
           )),

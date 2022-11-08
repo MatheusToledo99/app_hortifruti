@@ -6,7 +6,7 @@ class ProductModel {
   double price;
   String unit;
 
-  bool get isKG => unit == 'KG';
+  bool get isKG => unit == 'KG' || unit == 'kg';
 
   ProductModel({
     required this.id,

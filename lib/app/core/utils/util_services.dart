@@ -18,10 +18,13 @@ class UtilServices {
     );
   }
 
-  Future<bool> showDialogNewCart({required String message}) async {
+  Future<bool> showDialogToChoose({required String message}) async {
     return await Get.dialog(
       AlertDialog(
-        content: Text(message),
+        content: Text(
+          message,
+          textAlign: TextAlign.justify,
+        ),
         actions: [
           TextButton(
               onPressed: () => Get.back(result: false),
@@ -30,6 +33,30 @@ class UtilServices {
             onPressed: () => Get.back(result: true),
             child: const Text('Confirmar'),
           ),
+        ],
+      ),
+    );
+  }
+
+  Future showAlertDialog({
+    required String message,
+    String? route,
+    String? routeMessage,
+    bool barrierDismissible = false,
+  }) async {
+    return await Get.dialog(
+      barrierDismissible: barrierDismissible,
+      AlertDialog(
+        content: Text(
+          message,
+          textAlign: TextAlign.justify,
+        ),
+        actions: [
+          if (route != null)
+            TextButton(
+              onPressed: () => Get.offAllNamed(route),
+              child: const Text('Ver meus Pedidos'),
+            )
         ],
       ),
     );

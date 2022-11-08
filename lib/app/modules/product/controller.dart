@@ -25,8 +25,10 @@ class ProductController extends GetxController with StateMixin<ProductModel> {
     final totalQuantity = Get.find<QuantityAndWeightController>().totalQuantity;
 
     if (_cartService.isNewStore(store.value!)) {
-      if (await UtilServices().showDialogNewCart(
-          message: 'Seu carrinho do estabelecimento será excluído')) {
+      if (await UtilServices().showDialogToChoose(
+          message:
+              'Você está o carrinho de estabelecimento, os dados do carrinho anterior serão excluídos.'
+              '\n\nConfirma a transação?')) {
         _cartService.clearCart();
       } else {
         return;

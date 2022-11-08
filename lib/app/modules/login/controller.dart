@@ -1,3 +1,4 @@
+import 'package:app_hortifruti/app/core/utils/util_services.dart';
 import 'package:app_hortifruti/app/data/model/login.dart';
 import 'package:app_hortifruti/app/data/services/auth/service.dart';
 import 'package:flutter/cupertino.dart';
@@ -22,6 +23,10 @@ class LoginController extends GetxController {
       password: passwordController.text,
     );
 
-    _authService.login(userData).then((value) => null);
+    _authService.login(userData).then((value) {
+      Get.back();
+    }, onError: (error) {
+      UtilServices().showAlertDialog(message: 'Login não autorizado');
+    });
   }
 }

@@ -45,6 +45,13 @@ class Api extends GetConnect {
     return UserModel.fromJson(response.body);
   }
 
+  //Atualiza os dados de um usuário
+  Future<UserModel> updateUser(UserModel data) async {
+    var response = _errorHandler(await patch('cliente', jsonEncode(data)));
+
+    return UserModel.fromJson(response.body);
+  }
+
   //Resgatar os enderecos de um usuário
   Future<List<AddressModel>> getUserAddress() async {
     var response = _errorHandler(await get('enderecos'));
@@ -101,8 +108,9 @@ class Api extends GetConnect {
     return TokenModel.fromJson(response.body);
   }
 
+  //Enviar um pedido
   Future postOrder(order) async {
-    final response = _errorHandler(await post('pedidos', json.encode(order)));
+    _errorHandler(await post('pedidos', json.encode(order)));
   }
 
   Response<dynamic> _errorHandler(Response response) {

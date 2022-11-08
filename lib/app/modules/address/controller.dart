@@ -62,15 +62,21 @@ class AddressController extends GetxController
           complementController.text.isEmpty ? null : complementController.text,
     );
 
-    _repository.postUserAddress(address).then((value) {
-      ScaffoldMessenger.of(Get.overlayContext!).showSnackBar(UtilServices()
-          .messageSnackBar(message: 'Endereço criado com sucesso'));
-    }, onError: (error) {
-      ScaffoldMessenger.of(Get.overlayContext!).showSnackBar(UtilServices()
-          .messageSnackBar(
+    _repository.postUserAddress(address).then(
+      (value) {
+        ScaffoldMessenger.of(Get.overlayContext!).showSnackBar(
+          UtilServices()
+              .messageSnackBar(message: 'Endereço criado com sucesso'),
+        );
+      },
+      onError: (error) {
+        ScaffoldMessenger.of(Get.overlayContext!).showSnackBar(
+          UtilServices().messageSnackBar(
               message: 'Ocorreu um erro, tente novamente mais tarde',
-              isError: true));
-    });
+              isError: true),
+        );
+      },
+    );
 
     Future.delayed(
       const Duration(milliseconds: 300),

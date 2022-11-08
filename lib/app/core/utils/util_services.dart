@@ -55,7 +55,7 @@ class UtilServices {
           if (route != null)
             TextButton(
               onPressed: () => Get.offAllNamed(route),
-              child: const Text('Ver meus Pedidos'),
+              child: Text(routeMessage ?? ''),
             )
         ],
       ),

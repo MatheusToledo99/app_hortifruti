@@ -10,10 +10,13 @@ import 'package:app_hortifruti/app/modules/login/binding.dart';
 import 'package:app_hortifruti/app/modules/login/page.dart';
 import 'package:app_hortifruti/app/modules/product/binding.dart';
 import 'package:app_hortifruti/app/modules/product/page.dart';
+import 'package:app_hortifruti/app/modules/profile_addresses/binding.dart';
 import 'package:app_hortifruti/app/modules/store/binding.dart';
 import 'package:app_hortifruti/app/modules/store/page.dart';
 import 'package:get/get.dart';
 import 'package:app_hortifruti/app/routes/routes.dart';
+
+import '../modules/profile_addresses/page.dart';
 
 abstract class AppPages {
   static final pages = [
@@ -51,6 +54,11 @@ abstract class AppPages {
       name: Routes.address,
       page: () => const AddressPage(),
       binding: AddressBinding(),
+    ),
+    GetPage(
+      name: Routes.profileAddresses,
+      page: () => const ProfileAddressesPage(),
+      binding: ProfileAddressesBinding(),
     ),
   ];
 }

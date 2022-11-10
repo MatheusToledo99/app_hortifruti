@@ -23,8 +23,23 @@ class AddressController extends GetxController
   TextEditingController referencePointController = TextEditingController();
   TextEditingController complementController = TextEditingController();
 
+  final _addressEdit = Rxn<AddressModel>();
+
+  RxBool isEditing = false.obs;
+
   @override
   void onInit() {
+    if (Get.arguments != null) {
+      _addressEdit.value = Get.arguments;
+
+      isEditing.value = true;
+
+      streetController.text = _addressEdit.value!.street;
+      numberController.text = _addressEdit.value!.number!;
+      districtController.text = _addressEdit.value!.district;
+      referencePointController.text = _addressEdit.value!.referencePoint!;
+      complementController.text = _addressEdit.value!.complement!;
+    }
     _repository.getCities().then(
       (data) {
         if (data.isEmpty) {
@@ -51,6 +66,7 @@ class AddressController extends GetxController
     }
 
     var address = AddressModel(
+      id: isEditing.value ? _addressEdit.value!.id : null,
       city: selectedCity.value,
       street: streetController.text,
       number: numberController.text.isEmpty ? null : numberController.text,
@@ -62,11 +78,45 @@ class AddressController extends GetxController
           complementController.text.isEmpty ? null : complementController.text,
     );
 
+    if (isEditing.value) {
+      updateAddress(address);
+      return;
+    } else {
+      addAddress(address);
+    }
+
+    return;
+  }
+
+  void addAddress(AddressModel address) {
     _repository.postUserAddress(address).then(
       (value) {
         ScaffoldMessenger.of(Get.overlayContext!).showSnackBar(
           UtilServices()
               .messageSnackBar(message: 'Endereço criado com sucesso'),
+        );
+      },
+      onError: (error) {
+        ScaffoldMessenger.of(Get.overlayContext!).showSnackBar(
+          UtilServices().messageSnackBar(
+              message: 'Ocorreu um erro, tente novamente mais tarde',
+              isError: true),
+        );
+      },
+    );
+
+    Future.delayed(
+      const Duration(milliseconds: 300),
+      () => Get.back(),
+    );
+  }
+
+  void updateAddress(AddressModel address) {
+    _repository.patchUserAddress(address).then(
+      (value) {
+        ScaffoldMessenger.of(Get.overlayContext!).showSnackBar(
+          UtilServices()
+              .messageSnackBar(message: 'Endereço Atualizado com sucesso'),
         );
       },
       onError: (error) {

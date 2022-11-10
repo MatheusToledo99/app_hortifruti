@@ -6,4 +6,5 @@ abstract class Routes {
   static const checkout = '/checkout';
   static const login = '/login';
   static const address = '/address';
+  static const profileAddresses = '/profile-addresses';
 }

@@ -17,8 +17,8 @@ class CheckoutController extends GetxController {
   RxBool isLoading = true.obs;
   final _cartService = Get.find<CartService>();
   final _authService = Get.find<AuthService>();
-  double get totalCart => _cartService.total;
   bool get isLoggeed => _authService.isLoggeed;
+  double get totalCart => _cartService.total;
   final selectedPayment = Rxn<PaymentModel>();
   final adresses = RxList<AddressModel>();
   final selectedAddress = Rxn<AddressModel>();
@@ -61,7 +61,7 @@ class CheckoutController extends GetxController {
   }
 
   void goToLogin() async {
-    await Get.toNamed(Routes.login, arguments: 2);
+    await Get.toNamed(Routes.login);
     fetchUserAdress();
   }
 
@@ -148,6 +148,7 @@ class CheckoutController extends GetxController {
             UtilServices().showAlertDialog(
                 message: 'Pedido Enviado',
                 route: Routes.dashBoard,
+                arguments: 2,
                 barrierDismissible: false,
                 routeMessage: 'Ver Meus Pedidos'),
             _cartService.clearCart()

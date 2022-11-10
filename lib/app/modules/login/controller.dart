@@ -31,7 +31,10 @@ class LoginController extends GetxController {
         Get.offAllNamed(Routes.dashBoard, arguments: 1);
       }
     }, onError: (error) {
-      UtilServices().showAlertDialog(message: 'Login não autorizado');
+      UtilServices().showAlertDialog(
+          message: 'Login não autorizado',
+          route: Routes.dashBoard,
+          routeMessage: 'Ir para o menu inicial');
     });
   }
 }

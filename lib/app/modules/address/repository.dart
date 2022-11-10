@@ -12,6 +12,10 @@ class AddressRepository {
   }
 
   Future<void> postUserAddress(AddressModel data) async {
-    _api.postUserAddress(data);
+    await _api.postUserAddress(data);
+  }
+
+  Future<void> patchUserAddress(AddressModel data) async {
+    await _api.patchUserAddress(data);
   }
 }

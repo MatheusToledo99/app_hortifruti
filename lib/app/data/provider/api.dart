@@ -16,7 +16,7 @@ class Api extends GetConnect {
   @override
   void onInit() {
     httpClient.baseUrl = 'http://192.168.1.3:3333/';
-    // httpClient.baseUrl = 'https://38c6-2804-d45-8e95-1a00-95d9-add2-5e27-8622.ngrok.io/';
+    //para compartilhar o localhost, utilizar o npm Ngrok
 
     httpClient.addRequestModifier((Request request) {
       request.headers['Accept'] = 'application/json';
@@ -56,8 +56,6 @@ class Api extends GetConnect {
   Future<List<AddressModel>> getUserAddress() async {
     var response = _errorHandler(await get('enderecos'));
 
-    print('resposta ${response.body}');
-
     List<AddressModel> data = [];
     for (var value in response.body) {
       data.add(AddressModel.fromJson(value));
@@ -81,6 +79,15 @@ class Api extends GetConnect {
   //Cadastrar um endereço para o usuário
   Future<void> postUserAddress(AddressModel data) async {
     _errorHandler(await post('enderecos', jsonEncode(data)));
+  }
+
+  //Atualizar um endereço para o usuário
+  Future<void> patchUserAddress(AddressModel data) async {
+    _errorHandler(await patch('enderecos/${data.id}', data.toJson()));
+  }
+
+  Future<void> deleteUserAddress(int index) async {
+    _errorHandler(await delete('enderecos/$index'));
   }
 
   //Buscar lista de estabecimentos

@@ -17,6 +17,7 @@ class ProfileController extends GetxController with StateMixin<UserModel> {
   var phoneController = TextEditingController();
   var passwordController = TextEditingController();
   final _authService = Get.find<AuthService>();
+  bool get isLoggeed => _authService.isLoggeed;
 
   @override
   void onInit() {
@@ -40,6 +41,8 @@ class ProfileController extends GetxController with StateMixin<UserModel> {
     await _authService.logout();
 
     Get.offAllNamed(Routes.dashBoard);
+
+    passwordController.text = '';
   }
 
   void submit() {

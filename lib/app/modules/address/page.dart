@@ -8,7 +8,12 @@ class AddressPage extends GetView<AddressController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Cadastro de Endereço')),
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(controller.isEditing.value
+            ? 'Alteração de Endereço'
+            : 'Cadastro de Endereço'),
+      ),
       body: controller.obx(
         (state) => SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 60),
@@ -111,8 +116,11 @@ class AddressPage extends GetView<AddressController> {
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: ElevatedButton.icon(
                     onPressed: controller.submit,
-                    icon: const Icon(Icons.home_work_outlined),
-                    label: const Text('Adicionar'),
+                    icon: Icon(controller.isEditing.value
+                        ? Icons.update_outlined
+                        : Icons.home_work_outlined),
+                    label: Text(
+                        controller.isEditing.value ? 'Atualizar' : 'Adicionar'),
                   ),
                 ),
               ],

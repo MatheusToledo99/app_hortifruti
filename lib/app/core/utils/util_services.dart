@@ -43,6 +43,7 @@ class UtilServices {
     String? route,
     String? routeMessage,
     bool barrierDismissible = false,
+    int arguments = 0,
   }) async {
     return await Get.dialog(
       barrierDismissible: barrierDismissible,
@@ -54,7 +55,7 @@ class UtilServices {
         actions: [
           if (route != null)
             TextButton(
-              onPressed: () => Get.offAllNamed(route),
+              onPressed: () => Get.offAllNamed(route, arguments: arguments),
               child: Text(routeMessage ?? ''),
             )
         ],

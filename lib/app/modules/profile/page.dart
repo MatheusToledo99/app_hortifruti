@@ -10,12 +10,33 @@ class ProfilePage extends GetView<ProfileController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(actions: [
-        TextButton.icon(
-            onPressed: controller.logout,
-            icon: const Icon(Icons.logout_outlined),
-            label: const Text('Logout')),
-      ]),
+      appBar: AppBar(
+        actions: [
+          PopupMenuButton(
+            itemBuilder: (context) => [
+              const PopupMenuItem(
+                value: 'logout',
+                child: Text('Logout'),
+              ),
+              const PopupMenuItem(
+                value: 'addresses',
+                child: Text('Meus Endereços'),
+              ),
+            ],
+            onSelected: (value) {
+              if (value == 'logout') {
+                !controller.isLoggeed ? null : controller.logout();
+              } else if (value == 'addresses') {
+                !controller.isLoggeed
+                    ? null
+                    : Get.toNamed(Routes.profileAddresses);
+              } else {
+                return;
+              }
+            },
+          ),
+        ],
+      ),
       body: controller.obx(
         (state) => SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),

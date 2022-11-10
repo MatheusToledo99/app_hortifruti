@@ -32,6 +32,7 @@ class AddressModel {
       );
 
   Map<String, dynamic> toJson() => {
+        'id': id,
         'cidadeId': city!.id,
         'rua': street,
         'numero': number,

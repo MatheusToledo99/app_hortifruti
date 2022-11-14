@@ -9,6 +9,7 @@ class StorageService extends GetxService {
   @override
   onInit() {
     _token.value = box.read(StorageKey.token.toString());
+
     box.listenKey(StorageKey.token.toString(), (value) => _token.value = value);
 
     super.onInit();

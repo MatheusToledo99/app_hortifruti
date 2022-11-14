@@ -8,6 +8,8 @@ import 'package:app_hortifruti/app/modules/dashboard/binding.dart';
 import 'package:app_hortifruti/app/modules/dashboard/page.dart';
 import 'package:app_hortifruti/app/modules/login/binding.dart';
 import 'package:app_hortifruti/app/modules/login/page.dart';
+import 'package:app_hortifruti/app/modules/order_detail/binding.dart';
+import 'package:app_hortifruti/app/modules/order_detail/page.dart';
 import 'package:app_hortifruti/app/modules/product/binding.dart';
 import 'package:app_hortifruti/app/modules/product/page.dart';
 import 'package:app_hortifruti/app/modules/profile_addresses/binding.dart';
@@ -59,6 +61,11 @@ abstract class AppPages {
       name: Routes.profileAddresses,
       page: () => const ProfileAddressesPage(),
       binding: ProfileAddressesBinding(),
+    ),
+    GetPage(
+      name: Routes.orderDetail,
+      page: () => const OrderDetailPage(),
+      binding: OrderDetailBinding(),
     ),
   ];
 }

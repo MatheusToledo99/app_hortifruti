@@ -1,33 +1,50 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
-import 'package:app_hortifruti/app/data/model/address.dart';
-import 'package:app_hortifruti/app/data/model/cart_product.dart';
 import 'package:app_hortifruti/app/data/model/payment.dart';
+import 'package:app_hortifruti/app/data/model/product.dart';
+import 'package:app_hortifruti/app/data/model/status.dart';
 import 'package:app_hortifruti/app/data/model/store.dart';
 
 class OrderModel {
+  String hashId;
   StoreModel store;
-  PaymentModel payment;
-  List<CartProductModel> cartProducts;
-  AddressModel address;
-  String? observation;
-  double? moneyFor;
+  List<StatusModel> statuses;
+  double value;
+  double deliveryCoast;
+  DateTime createAt;
+  PaymentModel? payment;
+  List<ProductModel>? products;
 
   OrderModel({
+    required this.hashId,
     required this.store,
-    required this.payment,
-    required this.cartProducts,
-    required this.address,
-    this.observation,
-    this.moneyFor,
+    required this.statuses,
+    required this.value,
+    required this.deliveryCoast,
+    required this.createAt,
+    this.payment,
+    this.products,
   });
 
-  Map<String, dynamic> toJson() => {
-        'estabelecimento_id': store.id,
-        'meio_pagamento_id': payment.id,
-        'endereco_id': address.id,
-        'produtos':
-            cartProducts.map((cartProduct) => cartProduct.toJson()).toList(),
-        'observacao': observation,
-        'troco_para': moneyFor,
-      };
+  factory OrderModel.fromJson(Map<String, dynamic> json) => OrderModel(
+        hashId: json['hash_id'],
+        store: StoreModel.fromJson(json['estabelecimento']),
+        statuses: json['pedido_status'] == null
+            ? []
+            : List<StatusModel>.from(
+                json['pedido_status']
+                    .map((thisStatus) => StatusModel.fromJson(thisStatus)),
+              ),
+        value: double.parse(json['valor']),
+        deliveryCoast: double.parse(json['custo_entrega']),
+        createAt: DateTime.parse(json['created_at']),
+        payment: json['meioPagamento'] == null
+            ? null
+            : PaymentModel.fromJson(json['meioPagamento']),
+        products: json['pedidosProduto'] == null
+            ? []
+            : List<ProductModel>.from(
+                json['pedidosProduto'].map(
+                    (thisProduct) => ProductModel.fromJsonOrder(thisProduct)),
+              ),
+      );
 }

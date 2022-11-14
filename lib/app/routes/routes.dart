@@ -7,4 +7,5 @@ abstract class Routes {
   static const login = '/login';
   static const address = '/address';
   static const profileAddresses = '/profile-addresses';
+  static const orderDetail = '/order-detail/:id';
 }

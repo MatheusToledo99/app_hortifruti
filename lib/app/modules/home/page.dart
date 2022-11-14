@@ -9,15 +9,17 @@ class HomePage extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Hortifruti'),
-        centerTitle: true,
-      ),
-      body: RefreshIndicator(
-        onRefresh: () => controller.atualizar(),
-        child: controller.obx(
+    return RefreshIndicator(
+      onRefresh: () => controller.atualizar(),
+      child: Scaffold(
+        appBar: AppBar(
+          title: const Text('Hortifruti'),
+          centerTitle: true,
+        ),
+        body: controller.obx(
           (state) => ListView.separated(
+            shrinkWrap: false,
+            physics: const AlwaysScrollableScrollPhysics(),
             separatorBuilder: (context, _) => const Divider(),
             itemCount: state!.length,
             itemBuilder: ((context, index) {

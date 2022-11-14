@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:app_hortifruti/app/data/model/address.dart';
 import 'package:app_hortifruti/app/data/model/city.dart';
+import 'package:app_hortifruti/app/data/model/order.dart';
 import 'package:app_hortifruti/app/data/model/store.dart';
 import 'package:app_hortifruti/app/data/model/token.dart';
 import 'package:app_hortifruti/app/data/model/login.dart';
@@ -13,9 +14,10 @@ import 'package:get/get_connect/http/src/request/request.dart';
 class Api extends GetConnect {
   final _storageService = Get.find<StorageService>();
 
+  //Iniciar a chamada à api, bem como acrescentar os headers e adicionar a autenticação;
   @override
   void onInit() {
-    httpClient.baseUrl = 'http://192.168.1.3:3333/';
+    httpClient.baseUrl = 'http://192.168.1.10:3333/';
     //para compartilhar o localhost, utilizar o npm Ngrok
 
     httpClient.addRequestModifier((Request request) {
@@ -76,6 +78,25 @@ class Api extends GetConnect {
     return data;
   }
 
+  //Resgatar os pedidosdo cliente
+  Future<List<OrderModel>> getOrders() async {
+    final response = _errorHandler(await get('pedidos'));
+
+    List<OrderModel> data = [];
+    for (var value in response.body) {
+      data.add(OrderModel.fromJson(value));
+    }
+
+    return data;
+  }
+
+  //Resgatar um pedido específico do cliente
+  Future<OrderModel> getOrder(String hashId) async {
+    final response = _errorHandler(await get('pedidos/$hashId'));
+
+    return OrderModel.fromJson(response.body);
+  }
+
   //Cadastrar um endereço para o usuário
   Future<void> postUserAddress(AddressModel data) async {
     _errorHandler(await post('enderecos', jsonEncode(data)));
@@ -86,6 +107,7 @@ class Api extends GetConnect {
     _errorHandler(await patch('enderecos/${data.id}', data.toJson()));
   }
 
+  //Deletar um endereço do usuário
   Future<void> deleteUserAddress(int index) async {
     _errorHandler(await delete('enderecos/$index'));
   }

@@ -1,7 +1,7 @@
 import 'package:app_hortifruti/app/core/utils/util_services.dart';
 import 'package:app_hortifruti/app/data/model/address.dart';
 import 'package:app_hortifruti/app/data/model/city_cost.dart';
-import 'package:app_hortifruti/app/data/model/order.dart';
+import 'package:app_hortifruti/app/data/model/cart.dart';
 import 'package:app_hortifruti/app/data/model/payment.dart';
 import 'package:app_hortifruti/app/data/services/auth/service.dart';
 import 'package:app_hortifruti/app/data/services/cart/service.dart';
@@ -133,7 +133,7 @@ class CheckoutController extends GetxController {
 
     if (selectedAddress.value == null) return;
 
-    var order = OrderModel(
+    var order = CartModel(
       store: _cartService.store.value!,
       payment: selectedPayment.value!,
       cartProducts: _cartService.products,

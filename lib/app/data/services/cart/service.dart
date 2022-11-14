@@ -9,6 +9,13 @@ class CartService extends GetxService {
   double get total => totalCart();
 
   void addProductToCart(CartProductModel cartProduct) {
+    for (var product in products) {
+      if (product.product.id == cartProduct.product.id) {
+        product.quantity += cartProduct.quantity;
+        return;
+      }
+    }
+
     products.add(cartProduct);
   }
 

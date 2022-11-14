@@ -18,6 +18,7 @@ class HomeController extends GetxController with StateMixin<List<StoreModel>> {
   Future atualizar() async {
     _repository.getStores().then(
       (data) {
+        // data = [];
         if (data.isEmpty) {
           change([], status: RxStatus.empty());
         } else {

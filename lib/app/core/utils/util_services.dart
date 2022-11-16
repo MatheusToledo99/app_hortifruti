@@ -40,7 +40,7 @@ class UtilServices {
     );
   }
 
-  Future showAlertDialog({
+  Future<void> showAlertDialog({
     required String message,
     String? route,
     String? routeMessage,

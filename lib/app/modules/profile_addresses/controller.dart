@@ -2,7 +2,6 @@ import 'package:app_hortifruti/app/core/utils/util_services.dart';
 import 'package:app_hortifruti/app/data/model/address.dart';
 import 'package:app_hortifruti/app/modules/profile_addresses/repository.dart';
 import 'package:app_hortifruti/app/routes/routes.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class ProfileAddressesController extends GetxController
@@ -39,15 +38,13 @@ class ProfileAddressesController extends GetxController
     _repository.deleteUserAddress(address.id!).then(
       (value) {
         fetchUserAddress();
-        ScaffoldMessenger.of(Get.overlayContext!).showSnackBar(
-          utilServices.messageSnackBar(
-              message: 'O endereço foi excluído com sucesso'),
-        );
+        utilServices.messageSnackBar(
+            message: 'O endereço foi excluído com sucesso');
       },
       onError: (error) {
-        ScaffoldMessenger.of(Get.overlayContext!).showSnackBar(
-          utilServices.messageSnackBar(
-              message: 'Ocorreu um erro ao excluir o endereço', isError: true),
+        utilServices.messageSnackBar(
+          message: 'Ocorreu um erro ao excluir o endereço',
+          isError: true,
         );
       },
     );

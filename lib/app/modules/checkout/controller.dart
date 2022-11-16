@@ -116,18 +116,18 @@ class CheckoutController extends GetxController {
   void createOrder() {
     if (selectedPayment.value!.name == 'Dinheiro' &&
         double.parse(moneyFor.text) < totalOrder) {
-      ScaffoldMessenger.of(Get.overlayContext!).showSnackBar(
-        UtilServices().messageSnackBar(
-            message: 'Troco deve ser maior que o valor do pedido',
-            isError: true),
+      UtilServices().messageSnackBar(
+        message: 'Troco deve ser maior que o valor do pedido',
+        isError: true,
       );
       return;
     }
     if (selectedPayment.value == null) {
-      ScaffoldMessenger.of(Get.overlayContext!).showSnackBar(
-        UtilServices().messageSnackBar(
-            message: 'Selecione um meio de pagamento', isError: true),
+      UtilServices().messageSnackBar(
+        message: 'Selecione um meio de pagamento',
+        isError: true,
       );
+
       return;
     }
 

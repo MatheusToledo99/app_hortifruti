@@ -91,16 +91,12 @@ class AddressController extends GetxController
   void addAddress(AddressModel address) {
     _repository.postUserAddress(address).then(
       (value) {
-        ScaffoldMessenger.of(Get.overlayContext!).showSnackBar(
-          UtilServices()
-              .messageSnackBar(message: 'Endereço criado com sucesso'),
-        );
+        UtilServices().messageSnackBar(message: 'Endereço criado com sucesso');
       },
       onError: (error) {
-        ScaffoldMessenger.of(Get.overlayContext!).showSnackBar(
-          UtilServices().messageSnackBar(
-              message: 'Ocorreu um erro, tente novamente mais tarde',
-              isError: true),
+        UtilServices().messageSnackBar(
+          message: 'Ocorreu um erro, tente novamente mais tarde',
+          isError: true,
         );
       },
     );
@@ -114,16 +110,13 @@ class AddressController extends GetxController
   void updateAddress(AddressModel address) {
     _repository.patchUserAddress(address).then(
       (value) {
-        ScaffoldMessenger.of(Get.overlayContext!).showSnackBar(
-          UtilServices()
-              .messageSnackBar(message: 'Endereço Atualizado com sucesso'),
-        );
+        UtilServices()
+            .messageSnackBar(message: 'Endereço Atualizado com sucesso');
       },
       onError: (error) {
-        ScaffoldMessenger.of(Get.overlayContext!).showSnackBar(
-          UtilServices().messageSnackBar(
-              message: 'Ocorreu um erro, tente novamente mais tarde',
-              isError: true),
+        UtilServices().messageSnackBar(
+          message: 'Ocorreu um erro, tente novamente mais tarde',
+          isError: true,
         );
       },
     );

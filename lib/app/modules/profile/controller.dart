@@ -59,15 +59,14 @@ class ProfileController extends GetxController with StateMixin<UserModel> {
 
     _repository.updateUser(userUpdate).then(
       (value) {
-        ScaffoldMessenger.of(Get.overlayContext!).showSnackBar(
-          UtilServices().messageSnackBar(
-              message: 'Seu cadastro foi atualizado com sucesso'),
-        );
+        UtilServices().messageSnackBar(
+            message: 'Seu cadastro foi atualizado com sucesso');
       },
       onError: (error) {
         UtilServices().showAlertDialog(
-            message: 'Ocorreu um erro, tente novamente mais tarde',
-            barrierDismissible: true);
+          message: 'Ocorreu um erro, tente novamente mais tarde',
+          barrierDismissible: true,
+        );
       },
     );
   }

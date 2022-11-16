@@ -47,10 +47,8 @@ class ProductController extends GetxController with StateMixin<ProductModel> {
       ),
     );
 
-    ScaffoldMessenger.of(Get.overlayContext!).showSnackBar(UtilServices()
-        .messageSnackBar(
-            message:
-                'O item ${product.value!.name} foi adicionado com sucesso'));
+    UtilServices().messageSnackBar(
+        message: 'O item ${product.value!.name} foi adicionado com sucesso');
 
     Future.delayed(
       const Duration(milliseconds: 300),

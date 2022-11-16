@@ -15,6 +15,8 @@ import 'package:app_hortifruti/app/modules/order_detail/page.dart';
 import 'package:app_hortifruti/app/modules/product/binding.dart';
 import 'package:app_hortifruti/app/modules/product/page.dart';
 import 'package:app_hortifruti/app/modules/profile_addresses/binding.dart';
+import 'package:app_hortifruti/app/modules/registration/binding.dart';
+import 'package:app_hortifruti/app/modules/registration/page.dart';
 import 'package:app_hortifruti/app/modules/store/binding.dart';
 import 'package:app_hortifruti/app/modules/store/page.dart';
 import 'package:get/get.dart';
@@ -73,6 +75,11 @@ abstract class AppPages {
       name: Routes.orderDetail,
       page: () => const OrderDetailPage(),
       binding: OrderDetailBinding(),
+    ),
+    GetPage(
+      name: Routes.registration,
+      page: () => const RegistrationPage(),
+      binding: RegistrationBinding(),
     ),
   ];
 }

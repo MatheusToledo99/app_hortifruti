@@ -1,4 +1,5 @@
 import 'package:app_hortifruti/app/modules/login/controller.dart';
+import 'package:app_hortifruti/app/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:email_validator/email_validator.dart';
@@ -55,7 +56,7 @@ class LoginPage extends GetView<LoginController> {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 8.0),
                 child: OutlinedButton.icon(
-                  onPressed: () {},
+                  onPressed: () => Get.toNamed(Routes.registration),
                   icon: const Icon(Icons.app_registration_rounded),
                   label: const Text('Cadastrar'),
                 ),

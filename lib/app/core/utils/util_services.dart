@@ -3,18 +3,20 @@ import 'package:get/get.dart';
 
 class UtilServices {
   messageSnackBar({required String message, bool isError = false}) {
-    return SnackBar(
-      content: Text(
-        textAlign: TextAlign.center,
-        message,
-        style: const TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.w900,
-          color: Colors.white,
+    return ScaffoldMessenger.of(Get.overlayContext!).showSnackBar(
+      SnackBar(
+        content: Text(
+          textAlign: TextAlign.center,
+          message,
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w900,
+            color: Colors.white,
+          ),
         ),
+        backgroundColor: isError ? Colors.red : Colors.green,
+        elevation: 5,
       ),
-      backgroundColor: isError ? Colors.red : Colors.green,
-      elevation: 5,
     );
   }
 

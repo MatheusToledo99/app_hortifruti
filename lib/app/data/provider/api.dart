@@ -47,11 +47,16 @@ class Api extends GetConnect {
     return UserModel.fromJson(response.body);
   }
 
-  //Atualiza os dados de um usuário
+  //Atualizar os dados de um usuário (cliente)
   Future<UserModel> updateUser(UserModel data) async {
     var response = _errorHandler(await patch('cliente', jsonEncode(data)));
 
     return UserModel.fromJson(response.body);
+  }
+
+  //Cadastrar um novo usuário (cliente)
+  Future<void> postUser(UserModel data) async {
+    _errorHandler(await post('cliente/cadastro', data.toJson()));
   }
 
   //Resgatar os enderecos de um usuário
@@ -97,22 +102,22 @@ class Api extends GetConnect {
     return OrderModel.fromJson(response.body);
   }
 
-  //Cadastrar um endereço para o usuário
+  //Cadastrar um endereço para o usuário (cliente)
   Future<void> postUserAddress(AddressModel data) async {
     _errorHandler(await post('enderecos', jsonEncode(data)));
   }
 
-  //Atualizar um endereço para o usuário
+  //Atualizar um endereço para o usuário (cliente)
   Future<void> patchUserAddress(AddressModel data) async {
     _errorHandler(await patch('enderecos/${data.id}', data.toJson()));
   }
 
-  //Deletar um endereço do usuário
+  //Deletar um endereço do usuário (cliente)
   Future<void> deleteUserAddress(int index) async {
     _errorHandler(await delete('enderecos/$index'));
   }
 
-  //Buscar lista de estabecimentos
+  //Buscar lista de estabecimentos na cidade selecionada
   Future<List<StoreModel>> getStores(int cityId) async {
     final response =
         _errorHandler(await get('cidades/$cityId/estabelecimentos'));

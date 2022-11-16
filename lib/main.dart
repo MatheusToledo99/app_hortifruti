@@ -2,6 +2,7 @@ import 'package:app_hortifruti/app/core/theme/app_theme.dart';
 import 'package:app_hortifruti/app/data/provider/api.dart';
 import 'package:app_hortifruti/app/data/services/auth/repository.dart';
 import 'package:app_hortifruti/app/data/services/auth/service.dart';
+import 'package:app_hortifruti/app/data/services/city/service.dart';
 import 'package:app_hortifruti/app/data/services/storage/service.dart';
 import 'package:app_hortifruti/app/routes/pages.dart';
 import 'package:app_hortifruti/app/routes/routes.dart';
@@ -15,6 +16,7 @@ void main() async {
   await GetStorage.init();
 
   Get.put<StorageService>(StorageService());
+  Get.put<CitiesService>(CitiesService());
   Get.put<Api>(Api());
   Get.put<AuthService>(AuthService(AuthRepository(Get.find<Api>())));
   Get.put<CartService>(CartService());
@@ -23,7 +25,7 @@ void main() async {
   runApp(
     GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: Routes.dashBoard,
+      initialRoute: Routes.cities,
       theme: themeData,
       defaultTransition: Transition.fade,
       getPages: AppPages.pages,

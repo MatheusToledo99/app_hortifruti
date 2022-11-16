@@ -6,7 +6,7 @@ class HomeRepository {
 
   HomeRepository(this._api);
 
-  Future<List<StoreModel>> getStores() {
-    return _api.getStores();
+  Future<List<StoreModel>> getStores(int cityId) {
+    return _api.getStores(cityId);
   }
 }

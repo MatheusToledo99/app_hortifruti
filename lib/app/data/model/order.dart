@@ -1,6 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:app_hortifruti/app/data/model/order_detail.dart';
 import 'package:app_hortifruti/app/data/model/payment.dart';
-import 'package:app_hortifruti/app/data/model/product.dart';
 import 'package:app_hortifruti/app/data/model/status.dart';
 import 'package:app_hortifruti/app/data/model/store.dart';
 
@@ -12,7 +12,7 @@ class OrderModel {
   double deliveryCoast;
   DateTime createAt;
   PaymentModel? payment;
-  List<ProductModel>? products;
+  List<OrderDetailModel>? orderDetail;
 
   OrderModel({
     required this.hashId,
@@ -22,7 +22,7 @@ class OrderModel {
     required this.deliveryCoast,
     required this.createAt,
     this.payment,
-    this.products,
+    this.orderDetail,
   });
 
   factory OrderModel.fromJson(Map<String, dynamic> json) => OrderModel(
@@ -40,11 +40,11 @@ class OrderModel {
         payment: json['meioPagamento'] == null
             ? null
             : PaymentModel.fromJson(json['meioPagamento']),
-        products: json['pedidosProduto'] == null
+        orderDetail: json['pedidosProduto'] == null
             ? []
-            : List<ProductModel>.from(
+            : List<OrderDetailModel>.from(
                 json['pedidosProduto'].map(
-                    (thisProduct) => ProductModel.fromJsonOrder(thisProduct)),
+                    (thisProduct) => OrderDetailModel.fromJson(thisProduct)),
               ),
       );
 }

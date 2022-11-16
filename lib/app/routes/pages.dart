@@ -4,6 +4,8 @@ import 'package:app_hortifruti/app/modules/cart/binding.dart';
 import 'package:app_hortifruti/app/modules/cart/page.dart';
 import 'package:app_hortifruti/app/modules/checkout/binding.dart';
 import 'package:app_hortifruti/app/modules/checkout/page.dart';
+import 'package:app_hortifruti/app/modules/cities/binding.dart';
+import 'package:app_hortifruti/app/modules/cities/page.dart';
 import 'package:app_hortifruti/app/modules/dashboard/binding.dart';
 import 'package:app_hortifruti/app/modules/dashboard/page.dart';
 import 'package:app_hortifruti/app/modules/login/binding.dart';
@@ -22,6 +24,11 @@ import '../modules/profile_addresses/page.dart';
 
 abstract class AppPages {
   static final pages = [
+    GetPage(
+      name: Routes.cities,
+      page: () => const CitiesPage(),
+      binding: CitiesBinding(),
+    ),
     GetPage(
       name: Routes.dashBoard,
       page: () => const DashBoardPage(),

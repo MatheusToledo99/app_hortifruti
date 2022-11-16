@@ -1,5 +1,6 @@
 abstract class Routes {
-  static const dashBoard = '/';
+  static const cities = '/';
+  static const dashBoard = '/dashboard';
   static const store = '/store/:id';
   static const product = '/product';
   static const cart = '/cart';

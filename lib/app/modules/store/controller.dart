@@ -6,8 +6,6 @@ class StoreController extends GetxController with StateMixin<StoreModel> {
   final StoreRepository _repository;
   StoreController(this._repository);
 
-  RxBool visible = false.obs;
-
   @override
   void onInit() {
     int id = int.parse(Get.parameters['id']!);
@@ -22,10 +20,5 @@ class StoreController extends GetxController with StateMixin<StoreModel> {
     );
 
     super.onInit();
-  }
-
-  bool visibility() {
-    visible.value = !visible.value;
-    return visible.value;
   }
 }

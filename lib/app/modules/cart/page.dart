@@ -55,10 +55,18 @@ class CartPage extends GetView<CartController> {
                       ),
                     ),
                   ),
-                if (controller.products.isEmpty)
-                  const Align(child: Text('Seu carrinho está vazio'))
-                else
-                  ElevatedButton(
+                if (controller.products.isEmpty) ...[
+                  Center(
+                    heightFactor: 13,
+                    child: Column(
+                      children: const [
+                        Text('Seu carrinho está vazio'),
+                        Icon(Icons.remove_shopping_cart_outlined),
+                      ],
+                    ),
+                  )
+                ] else
+                  OutlinedButton(
                     onPressed: () => Get.toNamed(Routes.checkout),
                     child: const Text('Avançar'),
                   ),

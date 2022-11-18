@@ -18,6 +18,7 @@ class ProfileController extends GetxController with StateMixin<UserModel> {
   var passwordController = TextEditingController();
   final _authService = Get.find<AuthService>();
   bool get isLoggeed => _authService.isLoggeed;
+  final utilServices = UtilServices();
 
   @override
   void onInit() {
@@ -59,11 +60,11 @@ class ProfileController extends GetxController with StateMixin<UserModel> {
 
     _repository.updateUser(userUpdate).then(
       (value) {
-        UtilServices().messageSnackBar(
+        utilServices.messageSnackBar(
             message: 'Seu cadastro foi atualizado com sucesso');
       },
       onError: (error) {
-        UtilServices().showAlertDialog(
+        utilServices.showAlertDialog(
           message: 'Ocorreu um erro, tente novamente mais tarde',
           barrierDismissible: true,
         );

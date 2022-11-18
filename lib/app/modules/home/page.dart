@@ -14,7 +14,7 @@ class HomePage extends GetView<HomeController> {
         automaticallyImplyLeading: false,
         actions: [
           IconButton(
-            onPressed: Get.back,
+            onPressed: () => Get.offAllNamed(Routes.cities),
             icon: const Icon(Icons.location_on_outlined),
             padding: const EdgeInsets.only(right: 30),
           ),

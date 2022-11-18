@@ -61,9 +61,8 @@ class ProductPage extends GetView<ProductController> {
                         SizedBox(
                           height: MediaQuery.of(context).size.height * 0.07,
                           width: MediaQuery.of(context).size.height * 0.3,
-                          child: ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.green[100],
+                          child: OutlinedButton(
+                            style: OutlinedButton.styleFrom(
                                 textStyle: const TextStyle(
                                     fontWeight: FontWeight.bold)),
                             onPressed: () {

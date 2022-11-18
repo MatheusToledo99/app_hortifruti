@@ -53,7 +53,9 @@ class OrdersPage extends GetView<OrdersController> {
                     trailing: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5.0),
-                        color: Colors.green,
+                        color: order.statuses.last.name == 'Cancelado'
+                            ? Colors.red
+                            : Colors.green[300],
                       ),
                       child: Text(
                         order.statuses.last.name,
@@ -69,7 +71,7 @@ class OrdersPage extends GetView<OrdersController> {
           ),
           onEmpty: const Center(child: Text('Não há pedidos cadastrados')),
           onError: (error) => Center(
-            child: ElevatedButton.icon(
+            child: OutlinedButton.icon(
               onPressed: () => Get.toNamed(Routes.login),
               icon: const Icon(Icons.login_outlined),
               label: const Text('Entrar na minha conta'),

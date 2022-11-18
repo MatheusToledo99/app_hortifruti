@@ -9,12 +9,25 @@ class LoginController extends GetxController {
   final _authService = Get.find<AuthService>();
   final formKey = GlobalKey<FormState>();
 
-  TextEditingController emailController =
-      TextEditingController(text: 'cliente01@gmail.com');
-  TextEditingController passwordController =
-      TextEditingController(text: '123456');
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  RxBool isLoading = false.obs;
+
+  void goToRegistration() async {
+    isLoading.value = true;
+    var login = await Get.toNamed(Routes.registration);
+
+    if (login is LoginModel) {
+      emailController.text = login.email;
+      passwordController.text = login.password;
+      Get.focusScope!.unfocus();
+    }
+
+    return;
+  }
 
   void login() {
+    isLoading.value = true;
     if (!formKey.currentState!.validate()) {
       return;
     }
@@ -32,9 +45,10 @@ class LoginController extends GetxController {
       }
     }, onError: (error) {
       UtilServices().showAlertDialog(
-          message: 'Login não autorizado',
-          route: Routes.dashBoard,
-          routeMessage: 'Ir para o menu inicial');
+        message: 'Login não autorizado',
+        route: Routes.dashBoard,
+        routeMessage: 'Ir para o menu inicial',
+      );
     });
   }
 }

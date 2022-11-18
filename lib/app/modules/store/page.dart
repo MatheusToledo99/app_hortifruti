@@ -11,10 +11,7 @@ class StorePage extends GetView<StoreController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: null,
-        centerTitle: true,
-      ),
+      appBar: AppBar(),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
           Get.toNamed(Routes.cart);
@@ -72,62 +69,32 @@ class StorePage extends GetView<StoreController> {
                 child: ListView.separated(
                   separatorBuilder: (context, _) => const Divider(),
                   scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
                   itemCount: state.categories.length,
                   itemBuilder: (context, index) {
-                    return Column(
+                    return ExpansionTile(
+                      title: Text(state.categories[index].name),
                       children: [
-                        Obx(
-                          () => Container(
-                            decoration: BoxDecoration(
-                              border: Border.all(width: 1),
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            child: ListTile(
-                              onTap: () => controller.visibility(),
-                              title: Text("   ${state.categories[index].name}"),
-                              trailing: controller.visible.value
-                                  ? const Icon(
-                                      Icons.keyboard_arrow_down_outlined)
-                                  : const Icon(
-                                      Icons.keyboard_arrow_left_outlined),
-                            ),
-                          ),
-                        ),
                         for (var product in state.categories[index].products)
-                          Padding(
-                            padding: const EdgeInsets.only(left: 8.0),
-                            child: Obx(
-                              () => Visibility(
-                                visible: controller.visible.value,
-                                child: ListTile(
-                                  onTap: () {
-                                    // print(product.name);
-                                    Get.toNamed(
-                                      Routes.product,
-                                      arguments: {
-                                        'product': product,
-                                        'store': state
-                                      },
-                                    );
-                                  },
-                                  title: Text(product.name),
-                                  subtitle: Text(
-                                    product.isKG
-                                        ? '${NumberFormat.simpleCurrency().format(product.price)}/${product.unit.toLowerCase()}'
-                                        : NumberFormat.simpleCurrency()
-                                            .format(product.price),
-                                  ),
-                                  leading: ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: product.image != null
-                                        ? Image.network(product.image!)
-                                        : Image.asset(
-                                            'assets/images/semFoto.png'),
-                                  ),
-                                ),
-                              ),
+                          ListTile(
+                            title: Text(product.name),
+                            subtitle: Text(
+                              product.isKG
+                                  ? '${NumberFormat.simpleCurrency().format(product.price)}/${product.unit.toLowerCase()}'
+                                  : NumberFormat.simpleCurrency()
+                                      .format(product.price),
                             ),
+                            leading: ClipRRect(
+                              borderRadius: BorderRadius.circular(10),
+                              child: product.image != null
+                                  ? Image.network(product.image!)
+                                  : Image.asset('assets/images/semFoto.png'),
+                            ),
+                            onTap: () {
+                              Get.toNamed(
+                                Routes.product,
+                                arguments: {'product': product, 'store': state},
+                              );
+                            },
                           ),
                       ],
                     );

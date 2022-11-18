@@ -17,7 +17,7 @@ class OrdersController extends GetxController
   Future getOrders() async {
     _repository.getOrders().then((data) {
       if (data.isEmpty) {
-        change(data, status: RxStatus.success());
+        change(data, status: RxStatus.empty());
       } else {
         change(data, status: RxStatus.success());
       }

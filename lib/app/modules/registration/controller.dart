@@ -1,4 +1,5 @@
 import 'package:app_hortifruti/app/core/utils/util_services.dart';
+import 'package:app_hortifruti/app/data/model/login.dart';
 import 'package:app_hortifruti/app/data/model/user.dart';
 import 'package:app_hortifruti/app/modules/registration/repository.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +29,13 @@ class RegistrationController extends GetxController {
 
     _repository.postUser(newUser).then((value) {
       UtilServices().messageSnackBar(message: 'Cadastro realizado com sucesso');
-      Get.back();
+
+      var login = LoginModel(
+        email: emailController.text,
+        password: passwordController.text,
+      );
+
+      Get.back(result: login);
     });
   }
 }

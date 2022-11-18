@@ -26,13 +26,13 @@ class CheckoutPage extends GetView<CheckoutController> {
                         label: const Text('Entre com sua conta para continuar'),
                       ),
                     if (controller.isLoggeed && controller.adresses.isEmpty)
-                      ElevatedButton.icon(
+                      OutlinedButton.icon(
                         onPressed: controller.goToNewAddress,
                         icon: const Icon(Icons.location_city),
                         label: const Text('Cadastrar Endereço'),
                       ),
                     if (controller.isLoggeed && controller.adresses.isNotEmpty)
-                      ElevatedButton.icon(
+                      OutlinedButton.icon(
                         onPressed: controller.showAddressList,
                         icon: const Icon(Icons.location_on),
                         label: const Text('Escolher/Cadastrar um Endereço'),
@@ -168,7 +168,7 @@ class CheckoutPage extends GetView<CheckoutController> {
                     ),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 20),
-                      child: ElevatedButton(
+                      child: OutlinedButton(
                           onPressed: () {
                             controller.createOrder();
                           },

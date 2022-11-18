@@ -13,7 +13,7 @@ class Quantity extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
       children: [
-        ElevatedButton(
+        OutlinedButton(
           onPressed: () => controller.changeQuantity(-1),
           onLongPress: () => controller.changeQuantity(-controller.quantity),
           child: const Icon(Icons.remove),
@@ -23,7 +23,7 @@ class Quantity extends StatelessWidget {
               (controller.isKg ? 'kg' : ''),
           style: const TextStyle(fontWeight: FontWeight.bold),
         ),
-        ElevatedButton(
+        OutlinedButton(
           onPressed: () => controller.changeQuantity(1),
           child: const Icon(Icons.add),
         ),

@@ -16,12 +16,12 @@ class HomeController extends GetxController with StateMixin<List<StoreModel>> {
   void onInit() async {
     int cityId = _selectedCity.selectedCity.value!.id;
 
-    await atualizar(cityId);
+    atualizar(cityId);
 
     super.onInit();
   }
 
-  Future atualizar(int cityId) async {
+  void atualizar(int cityId) {
     _repository.getStores(cityId).then(
       (data) {
         if (data.isEmpty) {

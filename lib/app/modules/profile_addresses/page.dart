@@ -16,7 +16,7 @@ class ProfileAddressesPage extends GetView<ProfileAddressesController> {
             child: Column(
               children: [
                 Center(
-                  child: ElevatedButton.icon(
+                  child: OutlinedButton.icon(
                     onPressed: controller.goToNewAddress,
                     icon: const Icon(Icons.location_city),
                     label: const Text('Cadastrar Endereço'),

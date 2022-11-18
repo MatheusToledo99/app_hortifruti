@@ -20,22 +20,22 @@ class ProfilePage extends GetView<ProfileController> {
         actions: [
           PopupMenuButton(
             itemBuilder: (context) => [
-              const PopupMenuItem(
-                value: 'logout',
-                child: Text('Logout'),
-              ),
-              const PopupMenuItem(
-                value: 'addresses',
-                child: Text('Meus Endereços'),
-              ),
+              if (controller.isLoggeed) ...[
+                const PopupMenuItem(
+                  value: 'logout',
+                  child: Text('Logout'),
+                ),
+                const PopupMenuItem(
+                  value: 'addresses',
+                  child: Text('Meus Endereços'),
+                ),
+              ],
             ],
             onSelected: (value) {
               if (value == 'logout') {
-                !controller.isLoggeed ? null : controller.logout();
+                controller.logout();
               } else if (value == 'addresses') {
-                !controller.isLoggeed
-                    ? null
-                    : Get.toNamed(Routes.profileAddresses);
+                Get.toNamed(Routes.profileAddresses);
               } else {
                 return;
               }
@@ -109,7 +109,7 @@ class ProfilePage extends GetView<ProfileController> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: ElevatedButton.icon(
+                  child: OutlinedButton.icon(
                     onPressed: controller.submit,
                     icon: const Icon(Icons.update_outlined),
                     label: const Text('Atualizar'),
@@ -120,7 +120,7 @@ class ProfilePage extends GetView<ProfileController> {
           ),
         ),
         onError: (error) => Center(
-          child: ElevatedButton.icon(
+          child: OutlinedButton.icon(
             onPressed: () => Get.toNamed(Routes.login),
             icon: const Icon(Icons.login_outlined),
             label: const Text('Entrar na minha conta'),

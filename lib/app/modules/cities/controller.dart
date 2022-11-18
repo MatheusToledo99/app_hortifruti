@@ -1,3 +1,4 @@
+import 'package:app_hortifruti/app/core/utils/util_services.dart';
 import 'package:app_hortifruti/app/data/model/city.dart';
 import 'package:app_hortifruti/app/data/services/city/service.dart';
 import 'package:app_hortifruti/app/modules/cities/repository.dart';
@@ -7,6 +8,7 @@ import 'package:get/get.dart';
 class CitiesController extends GetxController with StateMixin<List<CityModel>> {
   final CitiesRepository _repository;
   final _selectedCity = Get.find<CitiesService>();
+  final utilServices = UtilServices();
 
   CitiesController(this._repository);
 
@@ -24,8 +26,20 @@ class CitiesController extends GetxController with StateMixin<List<CityModel>> {
     });
   }
 
-  void goToHome(CityModel city) {
+  void goToHomeWithCity(CityModel city) {
     _selectedCity.selectedCity.value = city;
     Get.toNamed(Routes.dashBoard);
+  }
+
+  void goToHomeWithoutCity() {
+    if (_selectedCity.selectedCity.value != null) {
+      Get.toNamed(Routes.dashBoard);
+      return;
+    }
+    utilServices.messageSnackBar(
+      message: 'Selecione uma cidade para iniciar',
+      isError: true,
+      duration: 2,
+    );
   }
 }

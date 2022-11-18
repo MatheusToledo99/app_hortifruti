@@ -12,6 +12,7 @@ class DashBoardPage extends GetView<DashBoardController> {
   Widget build(BuildContext context) {
     return Scaffold(
       bottomNavigationBar: Obx(() => NavigationBar(
+            backgroundColor: Colors.greenAccent,
             onDestinationSelected:
                 controller.currentPageIndex, //atualiza o inteiro
             selectedIndex: controller

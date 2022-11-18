@@ -114,7 +114,7 @@ class AddressPage extends GetView<AddressController> {
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
-                  child: ElevatedButton.icon(
+                  child: OutlinedButton.icon(
                     onPressed: controller.submit,
                     icon: Icon(controller.isEditing.value
                         ? Icons.update_outlined

@@ -1,4 +1,5 @@
 abstract class Routes {
+  static const splash = '/splash';
   static const cities = '/';
   static const dashBoard = '/dashboard';
   static const store = '/store/:id';

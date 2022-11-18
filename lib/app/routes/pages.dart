@@ -17,6 +17,7 @@ import 'package:app_hortifruti/app/modules/product/page.dart';
 import 'package:app_hortifruti/app/modules/profile_addresses/binding.dart';
 import 'package:app_hortifruti/app/modules/registration/binding.dart';
 import 'package:app_hortifruti/app/modules/registration/page.dart';
+import 'package:app_hortifruti/app/modules/splash/page.dart';
 import 'package:app_hortifruti/app/modules/store/binding.dart';
 import 'package:app_hortifruti/app/modules/store/page.dart';
 import 'package:get/get.dart';
@@ -26,6 +27,10 @@ import '../modules/profile_addresses/page.dart';
 
 abstract class AppPages {
   static final pages = [
+    GetPage(
+      name: Routes.splash,
+      page: () => const SplashPage(),
+    ),
     GetPage(
       name: Routes.cities,
       page: () => const CitiesPage(),

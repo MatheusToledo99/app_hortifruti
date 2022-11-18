@@ -1,8 +1,15 @@
 import 'package:flutter/material.dart';
 
-ColorScheme colorScheme = ColorScheme.fromSeed(seedColor: Colors.greenAccent);
+var outlinedButtonTheme = OutlinedButtonThemeData(
+  style: OutlinedButton.styleFrom(
+    side: const BorderSide(width: 1.5, color: Colors.green),
+  ),
+);
 
 final ThemeData themeData = ThemeData(
-  colorScheme: colorScheme,
+  primarySwatch: Colors.green,
+  scaffoldBackgroundColor: Colors.white,
+  appBarTheme: const AppBarTheme(backgroundColor: Colors.white),
+  outlinedButtonTheme: outlinedButtonTheme,
   useMaterial3: true,
 );

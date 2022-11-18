@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 class UtilServices {
-  messageSnackBar({required String message, bool isError = false}) {
+  messageSnackBar(
+      {required String message, bool isError = false, int duration = 3}) {
     return ScaffoldMessenger.of(Get.overlayContext!).showSnackBar(
       SnackBar(
+        duration: Duration(seconds: duration),
         content: Text(
           textAlign: TextAlign.center,
           message,

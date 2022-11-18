@@ -1,16 +1,3 @@
-# app_hortifruti
+Projeto contruído em Dart/Flutter simulando uma aplicação de Hortifruti, onde o cliente seleciona a cidade que há estabelecimentos cadastrados, bem como faz pedidos, altera seu cadastro e faz login com acesso automático pelo Token. Essa aplicação consome a API construída com Node/Js com o FrameWork Adonis, disponível neste link: https://github.com/MatheusToledo99/API-Hortifruti-NodeJS.git
 
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+Project built in Dart/Flutter simulating a Hortifruti application, where the customer selects the city where there are registered establishments, as well as places orders, changes their registration and logs in with automatic access via the Token. This application consumes the API built with Node/Js with FrameWork Adonis, available at this link: https://github.com/MatheusToledo99/API-Hortifruti-NodeJS.git

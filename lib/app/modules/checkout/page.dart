@@ -94,7 +94,8 @@ class CheckoutPage extends GetView<CheckoutController> {
                         ],
                       ),
                     ),
-                    if (controller.selectedPayment.value?.name == 'Dinheiro')
+                    if (controller.selectedPayment.value?.name ==
+                        'Dinheiro') ...[
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -104,16 +105,19 @@ class CheckoutPage extends GetView<CheckoutController> {
                               style: Get.textTheme.titleMedium,
                             ),
                           ),
-                          Expanded(
+                          SizedBox(
+                            width: 70,
                             child: TextFormField(
+                              textAlign: TextAlign.center,
                               keyboardType:
-                                  const TextInputType.numberWithOptions(
-                                      decimal: true),
+                                  const TextInputType.numberWithOptions(),
                               controller: controller.moneyFor,
                             ),
                           ),
                         ],
                       ),
+                      const Padding(padding: EdgeInsets.only(bottom: 20)),
+                    ],
                     const Divider(indent: 20, thickness: 3, endIndent: 20),
                     Expanded(
                       child: Row(

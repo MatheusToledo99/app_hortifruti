@@ -27,8 +27,8 @@ class ProductController extends GetxController with StateMixin<ProductModel> {
     if (_cartService.isNewStore(store.value!)) {
       if (await UtilServices().showDialogToChoose(
           message:
-              'Você está o carrinho de estabelecimento, os dados do carrinho anterior serão excluídos.'
-              '\n\nConfirma a transação?')) {
+              'Seu carrinho de compras pertence neste momento a outro estabelecimento.'
+              '\n\nConfirma a mudança do carrinho para o estabelecimento: ${store.value!.name} ?')) {
         _cartService.clearCart();
       } else {
         return;

@@ -5,6 +5,7 @@ import 'package:app_hortifruti/app/modules/profile/repository.dart';
 import 'package:app_hortifruti/app/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 
 class ProfileController extends GetxController with StateMixin<UserModel> {
   final ProfileRepository _repository;
@@ -19,13 +20,18 @@ class ProfileController extends GetxController with StateMixin<UserModel> {
   final _authService = Get.find<AuthService>();
   bool get isLoggeed => _authService.isLoggeed;
   final utilServices = UtilServices();
+  final mask = MaskTextInputFormatter(
+    mask: '(##) # ####-####',
+    filter: {"#": RegExp(r'[0-9]')},
+    type: MaskAutoCompletionType.lazy,
+  );
 
   @override
   void onInit() {
     _repository.getUser().then((resp) {
       nameController.text = resp.name;
       emailController.text = resp.email;
-      phoneController.text = resp.phone;
+      phoneController.text = mask.maskText(resp.phone);
 
       change(resp, status: RxStatus.success());
     }, onError: (err) {
@@ -52,11 +58,10 @@ class ProfileController extends GetxController with StateMixin<UserModel> {
     if (!formKey.currentState!.validate()) return;
 
     var userUpdate = UserModel(
-      name: nameController.text,
-      email: emailController.text,
-      phone: phoneController.text,
-      password: passwordController.text,
-    );
+        name: nameController.text,
+        email: emailController.text,
+        phone: mask.getUnmaskedText(),
+        password: passwordController.text);
 
     _repository.updateUser(userUpdate).then(
       (value) {
@@ -65,6 +70,7 @@ class ProfileController extends GetxController with StateMixin<UserModel> {
       },
       onError: (error) {
         utilServices.showAlertDialog(
+          arguments: 1,
           message: 'Ocorreu um erro, tente novamente mais tarde',
           barrierDismissible: true,
         );

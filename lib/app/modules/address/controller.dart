@@ -16,10 +16,9 @@ class AddressController extends GetxController
   final selectedCity = Rxn<CityModel>();
   final formKey = GlobalKey<FormState>();
 
-  TextEditingController streetController = TextEditingController(text: 'Rua C');
-  TextEditingController numberController = TextEditingController(text: '123');
-  TextEditingController districtController =
-      TextEditingController(text: 'Santana');
+  TextEditingController streetController = TextEditingController();
+  TextEditingController numberController = TextEditingController();
+  TextEditingController districtController = TextEditingController();
   TextEditingController referencePointController = TextEditingController();
   TextEditingController complementController = TextEditingController();
 

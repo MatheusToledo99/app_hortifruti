@@ -26,9 +26,10 @@ class ProfileAddressesPage extends GetView<ProfileAddressesController> {
                 if (state!.isEmpty)
                   Padding(
                     padding: EdgeInsets.only(
-                        top: MediaQuery.of(context).size.height * 0.30),
+                      top: MediaQuery.of(context).size.height * 0.30,
+                    ),
                     child:
-                        const Text('Não há endereços cadastradas ao seu login'),
+                        const Text('Não há endereços cadastrados ao seu login'),
                   ),
                 for (var address in state)
                   ListTile(
@@ -38,7 +39,6 @@ class ProfileAddressesPage extends GetView<ProfileAddressesController> {
                     subtitle: Text(
                         '${address.district}, ${address.complement ?? ''}'),
                     trailing: PopupMenuButton(
-                      // onCanceled: () => Get.back(),
                       itemBuilder: (context) => [
                         const PopupMenuItem(
                           value: 'edit',

@@ -80,7 +80,7 @@ class ProfilePage extends GetView<ProfileController> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: TextFormField(
-                    keyboardType: TextInputType.phone,
+                    keyboardType: TextInputType.number,
                     decoration: const InputDecoration(labelText: 'Telefone:'),
                     controller: controller.phoneController,
                     validator: (String? telefone) {
@@ -89,13 +89,16 @@ class ProfilePage extends GetView<ProfileController> {
                       }
                       return null;
                     },
+                    inputFormatters: [controller.mask],
                   ),
                 ),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: TextFormField(
                     obscureText: true,
-                    decoration: const InputDecoration(labelText: 'Senha:'),
+                    decoration: const InputDecoration(
+                        labelText: 'Senha:',
+                        hintText: 'Digite a senha se deseja atualizá-la'),
                     controller: controller.passwordController,
                     validator: (String? password) {
                       if (password != null &&

@@ -22,7 +22,7 @@ class CheckoutController extends GetxController {
   final selectedPayment = Rxn<PaymentModel>();
   final adresses = RxList<AddressModel>();
   final selectedAddress = Rxn<AddressModel>();
-  final moneyFor = TextEditingController();
+  final moneyFor = TextEditingController(text: '0');
 
   double get deliveryCost {
     if (getCityCostModel != null) return getCityCostModel!.cost;
@@ -114,8 +114,9 @@ class CheckoutController extends GetxController {
   }
 
   void createOrder() {
-    if (selectedPayment.value!.name == 'Dinheiro' &&
-        double.parse(moneyFor.text) < totalOrder) {
+    var money = double.parse(moneyFor.text.replaceAll(',', '.'));
+
+    if (selectedPayment.value!.name == 'Dinheiro' && money < totalOrder) {
       UtilServices().messageSnackBar(
         message: 'Troco deve ser maior que o valor do pedido',
         isError: true,
@@ -139,18 +140,18 @@ class CheckoutController extends GetxController {
       cartProducts: _cartService.products,
       address: selectedAddress.value!,
       observation: _cartService.cartObservation.value,
-      moneyFor: moneyFor.text.isEmpty ? null : double.parse(moneyFor.text),
+      moneyFor: money == 0 ? null : money,
     );
 
     _repository.postOrder(order).then(
           (value) => {
-            moneyFor.text = '',
             UtilServices().showAlertDialog(
-                message: 'Pedido Enviado',
-                route: Routes.dashBoard,
-                arguments: 2,
-                barrierDismissible: false,
-                routeMessage: 'Ver Meus Pedidos'),
+              message: 'Pedido Enviado',
+              route: Routes.dashBoard,
+              arguments: 2,
+              barrierDismissible: false,
+              routeMessage: 'Ver Meus Pedidos',
+            ),
             _cartService.clearCart()
           },
         );

@@ -30,37 +30,38 @@ class CitiesPage extends GetView<CitiesController> {
             centerTitle: true,
           ),
           body: controller.obx(
-              (cities) => Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 16, horizontal: 16),
-                    child: SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          const Divider(thickness: 1, color: Colors.black38),
-                          for (var city in cities!) ...[
-                            ListTile(
-                              title: Text(
-                                textAlign: TextAlign.center,
-                                city.name,
-                                style: const TextStyle(
-                                    fontSize: 20, fontWeight: FontWeight.bold),
-                              ),
-                              subtitle: Text(
-                                city.uf,
-                                textAlign: TextAlign.center,
-                              ),
-                              onTap: () => controller.goToHomeWithCity(city),
-                            ),
-                            const Divider(thickness: 1, color: Colors.black38),
-                          ],
-                        ],
+            (cities) => Padding(
+              padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    const Divider(thickness: 1, color: Colors.black38),
+                    for (var city in cities!) ...[
+                      ListTile(
+                        title: Text(
+                          textAlign: TextAlign.center,
+                          city.name,
+                          style: const TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        ),
+                        subtitle: Text(
+                          city.uf,
+                          textAlign: TextAlign.center,
+                        ),
+                        onTap: () => controller.goToHomeWithCity(city),
                       ),
-                    ),
-                  ),
-              onError: (error) => const Center(
-                    child: Text(
-                        'Não foi possível recuperar as cidades, tente novamente mais tarde'),
-                  )),
+                      const Divider(thickness: 1, color: Colors.black38),
+                    ],
+                  ],
+                ),
+              ),
+            ),
+            onError: (error) => const Center(
+              child: Text(
+                  'Não foi possível recuperar as cidades, tente novamente mais tarde',
+                  textAlign: TextAlign.center),
+            ),
+          ),
         ),
       ],
     );

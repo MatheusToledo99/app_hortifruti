@@ -9,12 +9,12 @@ class OrdersController extends GetxController
 
   @override
   void onInit() async {
-    await getOrders();
+    getOrders();
 
     super.onInit();
   }
 
-  Future getOrders() async {
+  void getOrders() async {
     _repository.getOrders().then((data) {
       if (data.isEmpty) {
         change(data, status: RxStatus.empty());

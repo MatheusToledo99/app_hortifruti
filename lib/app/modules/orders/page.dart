@@ -10,24 +10,23 @@ class OrdersPage extends GetView<OrdersController> {
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
-      onRefresh: controller.getOrders,
+      onRefresh: () async => controller.getOrders(),
       child: Scaffold(
         appBar: AppBar(
-            centerTitle: true,
-            title: const Text(
-              'Meus Pedidos',
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            automaticallyImplyLeading: false),
+          centerTitle: true,
+          title: const Text(
+            'Meus Pedidos',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+          automaticallyImplyLeading: false,
+        ),
         body: controller.obx(
           (orders) => SingleChildScrollView(
             child: Column(
               children: [
-                for (var order in orders!)
+                for (var order in orders!) ...[
                   ListTile(
-                    shape: const Border(
-                      bottom: BorderSide(width: 1),
-                    ),
+                    shape: const Border(bottom: BorderSide(width: 1)),
                     isThreeLine: true,
                     leading: SizedBox(
                       width: MediaQuery.of(context).size.width * 0.2,
@@ -51,21 +50,27 @@ class OrdersPage extends GetView<OrdersController> {
                       ),
                     ),
                     trailing: Container(
+                      width: MediaQuery.of(context).size.width * 0.2,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(5.0),
                         color: order.statuses.last.name == 'Cancelado'
                             ? Colors.red
-                            : Colors.green[300],
+                            : Colors.green,
                       ),
                       child: Text(
+                        textAlign: TextAlign.center,
                         order.statuses.last.name,
-                        style: const TextStyle(color: Colors.white),
+                        style: const TextStyle(
+                          fontWeight: FontWeight.w400,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                     onTap: () {
                       Get.toNamed(Routes.orderDetail, arguments: order.hashId);
                     },
                   ),
+                ],
               ],
             ),
           ),

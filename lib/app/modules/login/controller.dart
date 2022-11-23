@@ -12,11 +12,16 @@ class LoginController extends GetxController {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   RxBool isLoading = false.obs;
+  RxBool isVisible = false.obs;
+
+  void changeVisible() => isVisible.value = !isVisible.value;
 
   void goToRegistration() async {
     isLoading.value = true;
+
     var login = await Get.toNamed(Routes.registration);
 
+    isLoading.value = false;
     if (login is LoginModel) {
       emailController.text = login.email;
       passwordController.text = login.password;
@@ -27,10 +32,10 @@ class LoginController extends GetxController {
   }
 
   void login() {
-    isLoading.value = true;
     if (!formKey.currentState!.validate()) {
       return;
     }
+    isLoading.value = true;
 
     final userData = LoginModel(
       email: emailController.text,

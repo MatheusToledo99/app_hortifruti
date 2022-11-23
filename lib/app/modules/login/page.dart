@@ -33,7 +33,11 @@ class LoginPage extends GetView<LoginController> {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child: TextFormField(
-                        decoration: const InputDecoration(labelText: 'Email:'),
+                        keyboardType: TextInputType.emailAddress,
+                        decoration: const InputDecoration(
+                            labelText: 'Email',
+                            helperText:
+                                'Exemplo: desenvolvimento@simplesoft.com.br'),
                         controller: controller.emailController,
                         validator: (String? email) {
                           if (email != null &&
@@ -47,8 +51,18 @@ class LoginPage extends GetView<LoginController> {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 8.0),
                       child: TextFormField(
-                        obscureText: true,
-                        decoration: const InputDecoration(labelText: 'Senha:'),
+                        obscureText: controller.isVisible.value,
+                        decoration: InputDecoration(
+                          labelText: 'Senha:',
+                          suffixIcon: IconButton(
+                            onPressed: controller.changeVisible,
+                            icon: Icon(
+                              !controller.isVisible.value
+                                  ? Icons.visibility_outlined
+                                  : Icons.visibility_off_outlined,
+                            ),
+                          ),
+                        ),
                         controller: controller.passwordController,
                         validator: (String? password) {
                           if (password != null && password.isEmpty) {
@@ -58,26 +72,28 @@ class LoginPage extends GetView<LoginController> {
                         },
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: OutlinedButton.icon(
-                        onPressed: controller.isLoading.value
-                            ? null
-                            : controller.login,
-                        icon: const Icon(Icons.login_sharp),
-                        label: const Text('Entrar'),
+                    if (!controller.isLoading.value) ...[
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: OutlinedButton.icon(
+                          onPressed: controller.login,
+                          icon: const Icon(Icons.login_sharp),
+                          label: const Text('Entrar'),
+                        ),
                       ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      child: OutlinedButton.icon(
-                        onPressed: controller.isLoading.value
-                            ? null
-                            : controller.goToRegistration,
-                        icon: const Icon(Icons.app_registration_rounded),
-                        label: const Text('Cadastrar'),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 8.0),
+                        child: OutlinedButton.icon(
+                          onPressed: controller.goToRegistration,
+                          icon: const Icon(Icons.app_registration_rounded),
+                          label: const Text('Cadastrar'),
+                        ),
                       ),
-                    ),
+                    ] else
+                      const Padding(
+                        padding: EdgeInsets.symmetric(vertical: 12.0),
+                        child: Center(child: CircularProgressIndicator()),
+                      ),
                   ],
                 ),
               ),

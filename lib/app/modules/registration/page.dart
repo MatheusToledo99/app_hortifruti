@@ -31,7 +31,9 @@ class RegistrationPage extends GetView<RegistrationController> {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10.0),
                       child: TextFormField(
-                        decoration: const InputDecoration(label: Text('Nome')),
+                        decoration: const InputDecoration(
+                            label: Text('Nome'),
+                            helperText: 'Exemplo: Desenvolvimento'),
                         controller: controller.nameController,
                         validator: (nome) {
                           if (nome != null && nome.isEmpty) {
@@ -44,7 +46,10 @@ class RegistrationPage extends GetView<RegistrationController> {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10.0),
                       child: TextFormField(
-                        decoration: const InputDecoration(label: Text('Email')),
+                        decoration: const InputDecoration(
+                            label: Text('Email'),
+                            helperText:
+                                'Exemplo: desenvolvimento@simplesoft.com.br'),
                         controller: controller.emailController,
                         validator: (email) {
                           if (email != null &&
@@ -58,25 +63,38 @@ class RegistrationPage extends GetView<RegistrationController> {
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 10.0),
                       child: TextFormField(
-                        decoration:
-                            const InputDecoration(label: Text('Telefone')),
+                        decoration: const InputDecoration(
+                            label: Text('Telefone'),
+                            helperText: 'Exemplo: (32) 9 9823-2374'),
                         controller: controller.phoneController,
                         keyboardType: TextInputType.phone,
+                        inputFormatters: [controller.mask],
                       ),
                     ),
-                    Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10.0),
-                      child: TextFormField(
-                        decoration: const InputDecoration(label: Text('Senha')),
-                        controller: controller.passwordController,
-                        validator: (password) {
-                          if (password != null && password.isEmpty) {
-                            return 'Digite uma senha válida';
-                          }
-                          return null;
-                        },
-                      ),
-                    ),
+                    Obx(() => Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 10.0),
+                          child: TextFormField(
+                            obscureText: controller.isNotVisible.value,
+                            decoration: InputDecoration(
+                              label: const Text('Senha'),
+                              suffixIcon: IconButton(
+                                onPressed: controller.changeVisible,
+                                icon: Icon(
+                                  controller.isNotVisible.value
+                                      ? Icons.visibility_off_outlined
+                                      : Icons.visibility_outlined,
+                                ),
+                              ),
+                            ),
+                            controller: controller.passwordController,
+                            validator: (password) {
+                              if (password != null && password.isEmpty) {
+                                return 'Digite uma senha válida';
+                              }
+                              return null;
+                            },
+                          ),
+                        )),
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 20),
                       child: OutlinedButton.icon(

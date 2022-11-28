@@ -8,7 +8,7 @@ import 'package:get/get.dart';
 class LoginController extends GetxController {
   final _authService = Get.find<AuthService>();
   final formKey = GlobalKey<FormState>();
-
+  final utilServices = UtilServices();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   RxBool isLoading = false.obs;
@@ -43,17 +43,15 @@ class LoginController extends GetxController {
     );
 
     _authService.login(userData).then((value) {
-      if (Get.routing.previous == Routes.checkout) {
-        Get.back();
-      } else {
-        Get.offAllNamed(Routes.dashBoard, arguments: 1);
-      }
+      Get.offAllNamed(Routes.dashBoard, arguments: 1);
     }, onError: (error) {
-      UtilServices().showAlertDialog(
-        message: 'Login não autorizado',
-        route: Routes.dashBoard,
-        routeMessage: 'Ir para o menu inicial',
+      utilServices.messageSnackBar(
+        message: 'Email e/ou Senha inválidos.'
+            '\nTente novamente mais tarde.',
+        isError: true,
+        duration: 2,
       );
+      isLoading.value = false;
     });
   }
 }

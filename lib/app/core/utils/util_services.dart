@@ -24,10 +24,12 @@ class UtilServices {
 
   Future<bool> showDialogToChoose({required String message}) async {
     return await Get.dialog(
+      barrierDismissible: false,
       AlertDialog(
         content: Text(
           message,
           textAlign: TextAlign.justify,
+          style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
         ),
         actions: [
           TextButton(
@@ -54,7 +56,8 @@ class UtilServices {
       AlertDialog(
         content: Text(
           message,
-          textAlign: TextAlign.justify,
+          textAlign: TextAlign.left,
+          style: const TextStyle(fontWeight: FontWeight.bold),
         ),
         actions: [
           if (route != null)

@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 class CityModel {
   int id;
   String name;
@@ -14,4 +15,7 @@ class CityModel {
         name: json['nome'],
         uf: json['estado']['uf'],
       );
+
+  @override
+  String toString() => 'id: $id, name: $name, uf: $uf';
 }

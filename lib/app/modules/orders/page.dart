@@ -74,7 +74,19 @@ class OrdersPage extends GetView<OrdersController> {
               ],
             ),
           ),
-          onEmpty: const Center(child: Text('Não há pedidos cadastrados')),
+          onEmpty: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text('Não há pedidos cadastrados'),
+                const Padding(padding: EdgeInsets.symmetric(vertical: 40)),
+                OutlinedButton.icon(
+                    onPressed: controller.goToBuySomething,
+                    icon: const Icon(Icons.shopping_cart_outlined),
+                    label: const Text('Como comprar?')),
+              ],
+            ),
+          ),
           onError: (error) => Center(
             child: OutlinedButton.icon(
               onPressed: () => Get.toNamed(Routes.login),

@@ -116,19 +116,21 @@ class CheckoutController extends GetxController {
   void createOrder() {
     var money = double.parse(moneyFor.text.replaceAll(',', '.'));
 
+    if (selectedPayment.value == null) {
+      UtilServices().messageSnackBar(
+        message: 'Selecione um meio de pagamento',
+        isError: true,
+        duration: 3,
+      );
+
+      return;
+    }
+
     if (selectedPayment.value!.name == 'Dinheiro' && money < totalOrder) {
       UtilServices().messageSnackBar(
         message: 'Troco deve ser maior que o valor do pedido',
         isError: true,
       );
-      return;
-    }
-    if (selectedPayment.value == null) {
-      UtilServices().messageSnackBar(
-        message: 'Selecione um meio de pagamento',
-        isError: true,
-      );
-
       return;
     }
 

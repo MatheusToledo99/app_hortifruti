@@ -10,9 +10,7 @@ class HomePage extends GetView<HomeController> {
   @override
   Widget build(BuildContext context) {
     return RefreshIndicator(
-      onRefresh: () async {
-        return controller.atualizar();
-      },
+      onRefresh: () async => controller.atualizar(),
       child: Scaffold(
         appBar: AppBar(
           automaticallyImplyLeading: false,
@@ -30,30 +28,73 @@ class HomePage extends GetView<HomeController> {
           centerTitle: true,
         ),
         body: controller.obx(
-          (state) => ListView.separated(
-            shrinkWrap: false,
-            physics: const AlwaysScrollableScrollPhysics(),
-            separatorBuilder: (context, _) => const Divider(),
-            itemCount: state!.length,
-            itemBuilder: ((context, index) {
-              return ListTile(
-                onTap: () => Get.toNamed(Routes.store
-                    .replaceFirst(':id', state[index].id.toString())),
-                title: Text(state[index].name),
-                leading: ClipRRect(
-                  borderRadius: BorderRadius.circular(20.0),
-                  child: SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.2,
-                    child: state[index].image != null
-                        ? Image.network(state[index].image!)
-                        : const Icon(Icons.add_business_outlined),
+          (state) => Column(
+            children: [
+              Container(
+                height: 80,
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 16.0,
+                  vertical: 16.0,
+                ),
+                child: TextFormField(
+                  onChanged: (value) {
+                    controller.searchTitle.text = value;
+                    controller.onChanged();
+                  },
+                  decoration: InputDecoration(
+                    hintText: 'Pesquise um estabelecimento...',
+                    suffixIcon: const Icon(Icons.search_outlined),
+                    border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(60)),
                   ),
                 ),
-                trailing: StoreStatus(
-                  store: state[index],
+              ),
+              if (state!.isNotEmpty) ...[
+                Expanded(
+                  child: ListView.separated(
+                    shrinkWrap: false,
+                    physics: const AlwaysScrollableScrollPhysics(),
+                    separatorBuilder: (context, _) => const Divider(),
+                    itemCount: state.length,
+                    itemBuilder: ((context, index) {
+                      return ListTile(
+                        onTap: () {
+                          controller.downkeyboard();
+                          Get.toNamed(
+                            Routes.store.replaceFirst(
+                              ':id',
+                              state[index].id.toString(),
+                            ),
+                          );
+                        },
+                        title: Text(state[index].name),
+                        leading: ClipRRect(
+                          borderRadius: BorderRadius.circular(20.0),
+                          child: SizedBox(
+                            width: MediaQuery.of(context).size.width * 0.2,
+                            child: state[index].image != null
+                                ? Image.network(state[index].image!)
+                                : const Icon(Icons.add_business_outlined),
+                          ),
+                        ),
+                        trailing: StoreStatus(
+                          store: state[index],
+                        ),
+                      );
+                    }),
+                  ),
                 ),
-              );
-            }),
+              ] else ...[
+                Padding(
+                  padding: EdgeInsets.only(
+                      top: MediaQuery.of(context).size.height * 0.27),
+                  child: const Center(
+                    child: Text(
+                        'Não há estabelecimentos contidos na sua pesquisa'),
+                  ),
+                )
+              ],
+            ],
           ),
           onError: (error) => Center(
             child: Text(error!),

@@ -28,20 +28,18 @@ class ProfileController extends GetxController with StateMixin<UserModel> {
 
   @override
   void onInit() {
-    _repository.getUser().then((resp) {
-      nameController.text = resp.name;
-      emailController.text = resp.email;
-      phoneController.text = mask.maskText(resp.phone);
-
-      change(resp, status: RxStatus.success());
-    }, onError: (err) {
-      print(err);
-      change(
-        null,
-        status: RxStatus.error('Error get data'),
-      );
-      super.onInit();
-    });
+    _repository.getUser().then(
+      (resp) {
+        nameController.text = resp.name;
+        emailController.text = resp.email;
+        phoneController.text = mask.maskText(resp.phone);
+        change(resp, status: RxStatus.success());
+      },
+      onError: (err) {
+        change(null, status: RxStatus.error('Erro ao recuperar seus dados'));
+        super.onInit();
+      },
+    );
   }
 
   void logout() async {
@@ -52,16 +50,28 @@ class ProfileController extends GetxController with StateMixin<UserModel> {
     passwordController.text = '';
   }
 
-  void submit() {
+  void submit() async {
     Get.focusScope!.unfocus();
 
     if (!formKey.currentState!.validate()) return;
 
     var userUpdate = UserModel(
-        name: nameController.text,
-        email: emailController.text,
-        phone: mask.getUnmaskedText(),
-        password: passwordController.text);
+      name: nameController.text,
+      email: emailController.text,
+      phone: mask.getUnmaskedText(),
+      password: passwordController.text,
+    );
+
+    bool canUpdate = await utilServices.showDialogToChoose(
+      message:
+          'Você está atualizando seu cadastro, confirma todas informações?',
+    );
+
+    if (!canUpdate) {
+      utilServices.messageSnackBar(
+          message: 'Operação de atualização cancelada');
+      return;
+    }
 
     _repository.updateUser(userUpdate).then(
       (value) {

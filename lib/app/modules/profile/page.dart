@@ -84,8 +84,9 @@ class ProfilePage extends GetView<ProfileController> {
                     decoration: const InputDecoration(labelText: 'Telefone:'),
                     controller: controller.phoneController,
                     validator: (String? telefone) {
-                      if (telefone != null && telefone.isEmpty) {
-                        return 'Favor digite seu telefone';
+                      if (telefone != null && telefone.isEmpty ||
+                          controller.mask.getUnmaskedText().length != 11) {
+                        return 'Favor digite seu telefone válido';
                       }
                       return null;
                     },

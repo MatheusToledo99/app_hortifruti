@@ -32,28 +32,44 @@ class CitiesPage extends GetView<CitiesController> {
           body: controller.obx(
             (cities) => Padding(
               padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 16),
-              child: SingleChildScrollView(
-                child: Column(
-                  children: [
-                    const Divider(thickness: 1, color: Colors.black38),
-                    for (var city in cities!) ...[
-                      ListTile(
-                        title: Text(
-                          textAlign: TextAlign.center,
-                          city.name,
-                          style: const TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
-                        ),
-                        subtitle: Text(
-                          city.uf,
-                          textAlign: TextAlign.center,
-                        ),
-                        onTap: () => controller.goToHomeWithCity(city),
+              child: Column(
+                children: [
+                  TextField(
+                    keyboardType: TextInputType.name,
+                    onChanged: (value) {
+                      controller.searchCity.text = value;
+                      controller.onChanged();
+                    },
+                    decoration: InputDecoration(
+                      hintText: 'Qual cidade que você deseja?',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(60),
                       ),
-                      const Divider(thickness: 1, color: Colors.black38),
-                    ],
-                  ],
-                ),
+                    ),
+                  ),
+                  SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        for (var city in cities!) ...[
+                          ListTile(
+                            title: Text(
+                              textAlign: TextAlign.center,
+                              city.name,
+                              style: const TextStyle(
+                                  fontSize: 20, fontWeight: FontWeight.bold),
+                            ),
+                            subtitle: Text(
+                              city.uf,
+                              textAlign: TextAlign.center,
+                            ),
+                            onTap: () => controller.goToHomeWithCity(city),
+                          ),
+                          const Divider(thickness: 1, color: Colors.black38),
+                        ],
+                      ],
+                    ),
+                  ),
+                ],
               ),
             ),
             onError: (error) => const Center(

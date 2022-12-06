@@ -19,12 +19,8 @@ class CitiesController extends GetxController with StateMixin<List<CityModel>> {
     _repository.getCities().then((data) {
       change(data, status: RxStatus.success());
       listCities = data;
-    }, onError: (err) {
-      print(err);
-      change(
-        null,
-        status: RxStatus.error('Error get data'),
-      );
+    }, onError: (error) {
+      change(null, status: RxStatus.error(error));
       super.onInit();
     });
   }

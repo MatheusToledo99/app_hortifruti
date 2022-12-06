@@ -54,6 +54,8 @@ class ProfilePage extends GetView<ProfileController> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: TextFormField(
+                    textInputAction: TextInputAction.next,
+                    textCapitalization: TextCapitalization.words,
                     decoration: const InputDecoration(labelText: 'Nome:'),
                     controller: controller.nameController,
                     validator: (String? nome) {
@@ -67,6 +69,8 @@ class ProfilePage extends GetView<ProfileController> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: TextFormField(
+                    textInputAction: TextInputAction.next,
+                    textCapitalization: TextCapitalization.none,
                     decoration: const InputDecoration(labelText: 'Email:'),
                     controller: controller.emailController,
                     validator: (String? email) {
@@ -80,12 +84,12 @@ class ProfilePage extends GetView<ProfileController> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: TextFormField(
+                    textInputAction: TextInputAction.next,
                     keyboardType: TextInputType.number,
                     decoration: const InputDecoration(labelText: 'Telefone:'),
                     controller: controller.phoneController,
                     validator: (String? telefone) {
-                      if (telefone != null && telefone.isEmpty ||
-                          controller.mask.getUnmaskedText().length != 11) {
+                      if (telefone != null && telefone.isEmpty) {
                         return 'Favor digite seu telefone válido';
                       }
                       return null;
@@ -96,10 +100,12 @@ class ProfilePage extends GetView<ProfileController> {
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 8.0),
                   child: TextFormField(
+                    textInputAction: TextInputAction.done,
                     obscureText: true,
                     decoration: const InputDecoration(
-                        labelText: 'Senha:',
-                        hintText: 'Digite a senha se deseja atualizá-la'),
+                      labelText: 'Senha:',
+                      hintText: 'Digite a senha se deseja atualizá-la',
+                    ),
                     controller: controller.passwordController,
                     validator: (String? password) {
                       if (password != null &&

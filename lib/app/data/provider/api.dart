@@ -17,8 +17,9 @@ class Api extends GetConnect {
   //Iniciar a chamada à api, bem como acrescentar os headers e adicionar a autenticação;
   @override
   void onInit() {
-    httpClient.baseUrl = 'http://192.168.1.7:3333/';
-    //para compartilhar o localhost, utilizar o npm Ngrok
+    httpClient.baseUrl = 'https://api-hortifruti.herokuapp.com/';
+
+    ///para rodar localhost - [http://192.168.1.7:3333/]
 
     httpClient.addRequestModifier((Request request) {
       request.headers['Accept'] = 'application/json';

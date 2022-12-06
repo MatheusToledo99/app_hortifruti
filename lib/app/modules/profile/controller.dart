@@ -33,6 +33,7 @@ class ProfileController extends GetxController with StateMixin<UserModel> {
         nameController.text = resp.name;
         emailController.text = resp.email;
         phoneController.text = mask.maskText(resp.phone);
+
         change(resp, status: RxStatus.success());
       },
       onError: (err) {
@@ -46,8 +47,6 @@ class ProfileController extends GetxController with StateMixin<UserModel> {
     await _authService.logout();
 
     Get.offAllNamed(Routes.dashBoard);
-
-    passwordController.text = '';
   }
 
   void submit() async {
@@ -57,8 +56,8 @@ class ProfileController extends GetxController with StateMixin<UserModel> {
 
     var userUpdate = UserModel(
       name: nameController.text,
-      email: emailController.text,
-      phone: mask.getUnmaskedText(),
+      email: emailController.text.toLowerCase(),
+      phone: mask.unmaskText(phoneController.text),
       password: passwordController.text,
     );
 

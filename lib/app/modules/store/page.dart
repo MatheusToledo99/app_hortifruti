@@ -104,6 +104,21 @@ class StorePage extends GetView<StoreController> {
             )
           ],
         ),
+        onError: (error) => Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              'Ocorreu um erro ao buscar os produtos deste estabelecimento, tente novamente.',
+              textAlign: TextAlign.center,
+            ),
+            const Padding(padding: EdgeInsets.symmetric(vertical: 16)),
+            OutlinedButton(
+              onPressed: controller.onInit,
+              child: const Text('Tentar Novamente'),
+            ),
+          ],
+        ),
       ),
     );
   }

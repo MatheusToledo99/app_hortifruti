@@ -96,8 +96,20 @@ class HomePage extends GetView<HomeController> {
               ],
             ],
           ),
-          onError: (error) => Center(
-            child: Text(error!),
+          onError: (error) => Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Text(
+                'Ocorreu um erro ao buscar os estabelecimentos desta cidade, tente novamente.',
+                textAlign: TextAlign.center,
+              ),
+              const Padding(padding: EdgeInsets.symmetric(vertical: 16)),
+              OutlinedButton(
+                onPressed: controller.onInit,
+                child: const Text('Tentar Novamente'),
+              ),
+            ],
           ),
           onEmpty: const Center(
               child: Text('Não há estabelecimentos cadastrados nesta cidade')),
